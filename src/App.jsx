@@ -12,6 +12,7 @@ import { NotificationsScreen } from './components/customer/NotificationsScreen';
 import { BookingModal } from './components/customer/BookingModal';
 import { ReviewModal } from './components/customer/ReviewModal';
 import { CustomerChatDrawer } from './components/customer/CustomerChatDrawer';
+import { VipRegistrationModal } from './components/customer/VipRegistrationModal';
 
 // Owner Components for Tiệm B
 import { PartnerDashboard } from './components/partner/PartnerDashboard';
@@ -55,9 +56,10 @@ const AppContent = () => {
           )}
         </div>
 
-        {/* Global Modals for Booking & Reviews */}
+        {/* Global Modals for Booking, Reviews & VIP */}
         {isBookingOpen && <BookingModal key={bookingService?.id || 'booking-modal'} />}
         <ReviewModal />
+        <VipRegistrationModal />
 
         {/* Live Customer Chat Floating Button & Drawer */}
         {currentRole === 'customer' && <CustomerChatDrawer />}

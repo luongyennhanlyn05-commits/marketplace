@@ -5,6 +5,17 @@ import { Wifi, BatteryMedium, Signal } from 'lucide-react';
 export const MobileFrame = ({ children }) => {
   const { displayMode, themeOption } = useApp();
   const [currentTime, setCurrentTime] = useState('09:41');
+  const [isMobileDevice, setIsMobileDevice] = useState(() => {
+    return typeof window !== 'undefined' ? window.innerWidth <= 640 : false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileDevice(window.innerWidth <= 640);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -18,29 +29,31 @@ export const MobileFrame = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
 
-  if (displayMode === 'full') {
+  // When on mobile screen OR user explicitly chose 'full' mode:
+  // Render seamless native mobile app view without redundant outer frame/island
+  if (isMobileDevice || displayMode === 'full') {
     return (
       <main
         data-theme={themeOption}
         style={{
-          height: 'calc(100vh - 54px)',
+          minHeight: '100dvh',
+          height: '100dvh',
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
           padding: '0',
-          backgroundColor: '#1C0D12',
+          backgroundColor: '#F8F2EC',
           overflow: 'hidden'
         }}
       >
         <div style={{
           width: '100%',
-          maxWidth: '480px',
+          maxWidth: '520px',
           height: '100%',
           backgroundColor: '#F8F2EC',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
-          boxShadow: '0 0 50px rgba(0,0,0,0.4)',
           overflow: 'hidden'
         }}>
           {/* Animated 3D Depth Canvas Layer */}
@@ -50,7 +63,15 @@ export const MobileFrame = ({ children }) => {
             <div className="ambient-orb ambient-orb-3" />
           </div>
 
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden' }}>
+          <div style={{
+            position: 'relative',
+            zIndex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            height: '100%',
+            overflow: 'hidden'
+          }}>
             {children}
           </div>
         </div>

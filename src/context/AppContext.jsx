@@ -5,7 +5,9 @@ import {
   INITIAL_SERVICES,
   INITIAL_BOOKINGS,
   INITIAL_REVIEWS,
-  INITIAL_NOTIFICATIONS
+  INITIAL_NOTIFICATIONS,
+  MEMBERSHIP_CARDS,
+  INITIAL_VIP_MEMBERS
 } from '../data/mockData';
 
 const AppContext = createContext();
@@ -18,7 +20,9 @@ const STORAGE_KEYS = {
   NOTIFICATIONS: 'tiem_b_notifications_v2',
   LOCKED_SLOTS: 'tiem_b_locked_slots_v2',
   USER_TIER: 'tiem_b_user_tier_v2',
-  THEME_OPTION: 'tiem_b_theme_option_v2'
+  THEME_OPTION: 'tiem_b_theme_option_v2',
+  VIP_MEMBERS: 'tiem_b_vip_members_v2',
+  MEMBERSHIP_TIERS: 'tiem_b_membership_tiers_v2'
 };
 
 export const AppProvider = ({ children }) => {
@@ -86,6 +90,21 @@ export const AppProvider = ({ children }) => {
     return localStorage.getItem(STORAGE_KEYS.USER_TIER) || 'card_gold';
   });
 
+  // VIP Members List (Module CRM for Tiệm B)
+  const [vipMembers, setVipMembers] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.VIP_MEMBERS);
+    return saved ? JSON.parse(saved) : INITIAL_VIP_MEMBERS;
+  });
+
+  // Membership Tiers Configuration
+  const [membershipTiers, setMembershipTiers] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.MEMBERSHIP_TIERS);
+    return saved ? JSON.parse(saved) : MEMBERSHIP_CARDS;
+  });
+
+  // Customer VIP Registration Modal
+  const [isVipModalOpen, setIsVipModalOpen] = useState(false);
+
   // Booking Modal States
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [bookingService, setBookingService] = useState(null);
@@ -125,6 +144,14 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem(STORAGE_KEYS.USER_TIER, userTier);
   }, [userTier]);
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.VIP_MEMBERS, JSON.stringify(vipMembers));
+  }, [vipMembers]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.MEMBERSHIP_TIERS, JSON.stringify(membershipTiers));
+  }, [membershipTiers]);
+
   // Reset to initial demo state
   const resetDemoData = () => {
     localStorage.clear();
@@ -135,7 +162,10 @@ export const AppProvider = ({ children }) => {
     setNotifications(INITIAL_NOTIFICATIONS);
     setLockedSlots(['2026-10-04_11:00', '2026-10-05_15:30']);
     setUserTier('card_gold');
+    setVipMembers(INITIAL_VIP_MEMBERS);
+    setMembershipTiers(MEMBERSHIP_CARDS);
     setIsBookingOpen(false);
+    setIsVipModalOpen(false);
     setBookingService(null);
     setReviewBooking(null);
     alert('Đã khôi phục dữ liệu mẫu Tiệm B thành công!');
@@ -347,12 +377,70 @@ export const AppProvider = ({ children }) => {
     setShopInfo((prev) => ({ ...prev, ...newInfo }));
   };
 
-  // Mark all notifications as read
-  const markAllNotificationsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  // VIP Operations
+  const registerVipMember = ({ tierId, fullName, phone, birthday, note }) => {
+    const tier = membershipTiers.find((t) => t.id === tierId) || membershipTiers[1];
+    const prefix = tierId === 'card_diamond' ? 'DIA' : tierId === 'card_gold' ? 'GLD' : 'SLV';
+    const cardCode = `TB-${prefix}-${Math.floor(100 + Math.random() * 900)}`;
+
+    const newMember = {
+      id: `vip_${Date.now()}`,
+      cardCode,
+      tier: tierId,
+      tierName: tier.name,
+      fullName: fullName || 'Khách Hàng VIP',
+      phone: phone || '0988 888 999',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      joinDate: new Date().toLocaleDateString('vi-VN'),
+      expiryDate: tierId === 'card_diamond' ? 'Trọn đời' : '12 tháng',
+      totalSpent: tier.price,
+      visitsCount: 1,
+      favoriteStaff: 'Chuyên viên ngẫu nhiên',
+      note: note || (birthday ? `Sinh nhật: ${birthday}` : 'Đăng ký trực tuyến qua app'),
+      status: 'ACTIVE',
+      benefitsUsed: 'Mới kích hoạt'
+    };
+
+    setUserTier(tierId);
+    setVipMembers((prev) => [newMember, ...prev]);
+
+    // Send notification
+    const welcomeNotif = {
+      id: `notif-${Date.now()}`,
+      type: 'promo',
+      title: `Chúc mừng bạn đã là ${tier.name}! 👑`,
+      body: `Mã thẻ ${cardCode} đã kích hoạt. Bạn được giảm ngay ${tier.discount} cho tất cả các dịch vụ đặt lịch tại Tiệm B!`,
+      time: 'Vừa xong',
+      read: false
+    };
+    setNotifications((prev) => [welcomeNotif, ...prev]);
+    return newMember;
   };
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const updateVipMember = (memberId, fields) => {
+    setVipMembers((prev) =>
+      prev.map((m) => (m.id === memberId ? { ...m, ...fields } : m))
+    );
+  };
+
+  const addVipMember = (newMember) => {
+    setVipMembers((prev) => [newMember, ...prev]);
+  };
+
+  const deleteVipMember = (memberId) => {
+    setVipMembers((prev) => prev.filter((m) => m.id !== memberId));
+  };
+
+  const updateMembershipTier = (tierId, fields) => {
+    setMembershipTiers((prev) =>
+      prev.map((t) => (t.id === tierId ? { ...t, ...fields } : t))
+    );
+  };
+
+  const getTierDiscount = (tierId = userTier) => {
+    const tier = membershipTiers.find((t) => t.id === tierId);
+    return tier?.discountPercent || (tierId === 'card_diamond' ? 25 : tierId === 'card_gold' ? 15 : tierId === 'card_silver' ? 5 : 0);
+  };
 
   return (
     <AppContext.Provider
@@ -380,6 +468,18 @@ export const AppProvider = ({ children }) => {
         unlockAllSlotsForDate,
         userTier,
         setUserTier,
+        vipMembers,
+        setVipMembers,
+        membershipTiers,
+        setMembershipTiers,
+        isVipModalOpen,
+        setIsVipModalOpen,
+        registerVipMember,
+        updateVipMember,
+        addVipMember,
+        deleteVipMember,
+        updateMembershipTier,
+        getTierDiscount,
         isBookingOpen,
         setIsBookingOpen,
         bookingService,

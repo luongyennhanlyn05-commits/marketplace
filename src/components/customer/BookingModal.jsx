@@ -29,7 +29,10 @@ export const BookingModal = () => {
     lockedSlots,
     shopInfo,
     createBooking,
-    setCustomerTab
+    setCustomerTab,
+    userTier,
+    getTierDiscount,
+    membershipTiers
   } = useApp();
 
   const [step, setStep] = useState(1);
@@ -69,10 +72,14 @@ export const BookingModal = () => {
   const currentService = selectedService || services[0];
   const addonsTotal = selectedAddons.reduce((sum, a) => sum + a.price, 0);
   const addonsDuration = selectedAddons.reduce((sum, a) => sum + a.duration, 0);
-  const totalPrice = currentService.price + addonsTotal;
+  const subtotalPrice = currentService.price + addonsTotal;
+  const vipDiscountPercent = getTierDiscount(userTier);
+  const vipDiscountAmount = Math.round((subtotalPrice * vipDiscountPercent) / 100);
+  const totalPrice = subtotalPrice - vipDiscountAmount;
   const totalDuration = currentService.duration + addonsDuration;
   const depositAmount = currentService?.deposit || 50000;
-  const remainingAmount = totalPrice - depositAmount;
+  const remainingAmount = Math.max(0, totalPrice - depositAmount);
+  const activeTierObj = membershipTiers.find((t) => t.id === userTier);
 
   const toggleAddon = (addon) => {
     setSelectedAddons((prev) =>
@@ -582,8 +589,29 @@ export const BookingModal = () => {
                   </div>
                 ))}
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#691F31', fontWeight: '800', borderTop: '1px dashed rgba(105, 31, 49, 0.2)', paddingTop: '6px' }}>
-                  <span>Tổng giá trị dịch vụ:</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'rgba(105, 31, 49, 0.75)', fontSize: '11.5px', borderTop: '1px dashed rgba(105, 31, 49, 0.2)', paddingTop: '6px' }}>
+                  <span>Tạm tính dịch vụ:</span>
+                  <span>{subtotalPrice.toLocaleString()}đ</span>
+                </div>
+
+                {vipDiscountPercent > 0 && (
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    color: '#2E7D32',
+                    backgroundColor: 'rgba(46, 125, 50, 0.08)',
+                    padding: '4px 8px',
+                    borderRadius: '8px',
+                    fontSize: '11.5px',
+                    fontWeight: '700'
+                  }}>
+                    <span>👑 Đặc quyền {activeTierObj?.name || 'Hội viên VIP'} (-{vipDiscountPercent}%):</span>
+                    <span>-{vipDiscountAmount.toLocaleString()}đ</span>
+                  </div>
+                )}
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#691F31', fontWeight: '800' }}>
+                  <span>Tổng sau ưu đãi VIP:</span>
                   <span>{totalPrice.toLocaleString()}đ</span>
                 </div>
 

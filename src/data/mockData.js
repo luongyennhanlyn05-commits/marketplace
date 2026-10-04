@@ -440,6 +440,7 @@ export const MEMBERSHIP_CARDS = [
     validity: '12 tháng',
     badge: 'Khách hàng Thân thiết',
     discount: '5%',
+    discountPercent: 5,
     benefits: [
       'Giảm 5% toàn bộ menu dịch vụ Tiệm B',
       'Tặng 1 buổi gội đầu thảo dược sinh nhật',
@@ -454,6 +455,7 @@ export const MEMBERSHIP_CARDS = [
     validity: '12 tháng',
     badge: 'Phổ biến nhất tại Tiệm B',
     discount: '15%',
+    discountPercent: 15,
     benefits: [
       'Giảm 15% tất cả dịch vụ làm đẹp tại Tiệm B',
       'Được quyền chọn Stylist / KTV trưởng miễn phí',
@@ -469,6 +471,7 @@ export const MEMBERSHIP_CARDS = [
     validity: 'Trọn đời',
     badge: '👑 Thượng Khách Tiệm B',
     discount: '25%',
+    discountPercent: 25,
     benefits: [
       'Giảm 25% trọn đời toàn bộ dịch vụ',
       'Phòng VIP riêng tư với chuyên gia trưởng',
@@ -476,6 +479,111 @@ export const MEMBERSHIP_CARDS = [
       'Tặng 2 buổi chăm sóc da chuyên sâu 1.300K'
     ],
     highlight: false
+  }
+];
+
+export const INITIAL_VIP_MEMBERS = [
+  {
+    id: 'vip_1',
+    cardCode: 'TB-DIA-001',
+    tier: 'card_diamond',
+    tierName: 'Thẻ Kim Cương (Diamond VIP)',
+    fullName: 'Lê Hoàng Yến',
+    phone: '0933 888 123',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+    joinDate: '15/01/2025',
+    expiryDate: 'Trọn đời',
+    totalSpent: 18500000,
+    visitsCount: 22,
+    favoriteStaff: 'Master Minh Trí',
+    note: 'Thích không gian phòng VIP riêng tư, uốn tóc sóng lơi Hàn Quốc, thích trà dưỡng nhan ít đường.',
+    status: 'ACTIVE',
+    benefitsUsed: 'Đã tặng 1 lần dưỡng phục hồi keratin'
+  },
+  {
+    id: 'vip_2',
+    cardCode: 'TB-GLD-002',
+    tier: 'card_gold',
+    tierName: 'Thẻ Vàng (Gold VIP)',
+    fullName: 'Nguyễn Thùy Linh',
+    phone: '0988 234 567',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    joinDate: '10/06/2025',
+    expiryDate: '10/06/2027',
+    totalSpent: 8900000,
+    visitsCount: 12,
+    favoriteStaff: 'KTV Ngọc Mai',
+    note: 'Cổ vai gáy hay căng mỏi do ngồi văn phòng máy tính, ưu tiên massage đá bazan lực vừa phải.',
+    status: 'ACTIVE',
+    benefitsUsed: 'Đã nhận voucher sinh nhật'
+  },
+  {
+    id: 'vip_3',
+    cardCode: 'TB-GLD-003',
+    tier: 'card_gold',
+    tierName: 'Thẻ Vàng (Gold VIP)',
+    fullName: 'Trần Thị Mai Phương',
+    phone: '0912 345 678',
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80',
+    joinDate: '20/07/2025',
+    expiryDate: '20/07/2027',
+    totalSpent: 6450000,
+    visitsCount: 9,
+    favoriteStaff: 'Artist Lan Hương',
+    note: 'Rất mê vẽ móng gel nghệ thuật tông nude & pastel, thường đặt lịch vào sáng Chủ Nhật.',
+    status: 'ACTIVE',
+    benefitsUsed: 'Tặng 1 buổi chăm sóc viền móng OPI'
+  },
+  {
+    id: 'vip_4',
+    cardCode: 'TB-DIA-004',
+    tier: 'card_diamond',
+    tierName: 'Thẻ Kim Cương (Diamond VIP)',
+    fullName: 'Đặng Thu Thảo',
+    phone: '0981 777 999',
+    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80',
+    joinDate: '01/03/2025',
+    expiryDate: 'Trọn đời',
+    totalSpent: 24600000,
+    visitsCount: 28,
+    favoriteStaff: 'Master Minh Trí',
+    note: 'Thường xuyên nhuộm phục hồi keratin và điện di tế bào gốc cá hồi. Luôn chuẩn bị phòng riêng.',
+    status: 'ACTIVE',
+    benefitsUsed: 'Đã dùng 1/2 buổi chăm sóc da chuyên sâu'
+  },
+  {
+    id: 'vip_5',
+    cardCode: 'TB-SLV-005',
+    tier: 'card_silver',
+    tierName: 'Thẻ Bạc (Silver Member)',
+    fullName: 'Phạm Quỳnh Chi',
+    phone: '0977 456 789',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+    joinDate: '05/08/2025',
+    expiryDate: '05/08/2027',
+    totalSpent: 3200000,
+    visitsCount: 5,
+    favoriteStaff: 'KTV Ngọc Mai',
+    note: 'Khách thích gội dưỡng sinh 14 bước thảo dược thiên nhiên ấm áp.',
+    status: 'ACTIVE',
+    benefitsUsed: 'Đã kích hoạt ưu đãi đặt hẹn ưu tiên'
+  },
+  {
+    id: 'vip_6',
+    cardCode: 'TB-SLV-006',
+    tier: 'card_silver',
+    tierName: 'Thẻ Bạc (Silver Member)',
+    fullName: 'Vũ Bích Ngọc',
+    phone: '0909 112 233',
+    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80',
+    joinDate: '12/09/2025',
+    expiryDate: '12/09/2027',
+    totalSpent: 2800000,
+    visitsCount: 4,
+    favoriteStaff: 'Chuyên viên ngẫu nhiên',
+    note: 'Thích thử nghiệm các gói dịch vụ mới vào các dịp cuối tuần.',
+    status: 'EXPIRING_SOON',
+    benefitsUsed: 'Chưa sử dụng ưu đãi sinh nhật'
   }
 ];
 

@@ -17,6 +17,7 @@ import {
   AlertTriangle,
   ExternalLink
 } from 'lucide-react';
+import { CustomerVipCard } from './CustomerVipCard';
 
 export const HomeScreen = () => {
   const {
@@ -319,7 +320,10 @@ export const HomeScreen = () => {
         </div>
       </div>
 
-      {/* 2. Hero Card: Điểm nhấn chính của trang chủ */}
+      {/* 2. Thẻ Hội Viên VIP Tiệm B */}
+      <CustomerVipCard />
+
+      {/* 3. Hero Card: Điểm nhấn chính của trang chủ */}
       <section style={{ padding: '8px 20px 24px' }}>
         <div className="warm-glass-card hover-blush" style={{
           overflow: 'hidden',
