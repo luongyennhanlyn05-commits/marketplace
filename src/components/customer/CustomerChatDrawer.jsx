@@ -135,7 +135,7 @@ export const CustomerChatDrawer = () => {
         <div
           style={{
             position: 'absolute',
-            bottom: '84px',
+            bottom: '94px',
             right: '18px',
             zIndex: 930
           }}
