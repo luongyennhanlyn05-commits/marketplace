@@ -6,18 +6,10 @@ import {
   Save,
   Star,
   Camera,
-  MapPin,
-  Clock,
-  Phone,
   ShieldCheck,
   Sparkles,
   Users,
-  Settings,
-  Plus,
-  Trash2,
-  ExternalLink,
-  Check,
-  AlertCircle
+  Trash2
 } from 'lucide-react';
 import { PartnerReviews } from './PartnerReviews';
 
@@ -37,22 +29,17 @@ export const PartnerProfile = () => {
     description: shopInfo.description || 'Tiệm B là không gian làm đẹp cao cấp tích hợp Hair Studio, Nail Art và Spa Trị Liệu.',
     depositRate: shopInfo.depositRate || 20,
     depositPolicy: shopInfo.depositPolicy || 'Quý khách vui lòng đặt cọc giữ khung giờ phục vụ riêng. Tiệm B cam kết hoàn 100% tiền cọc nếu hủy trước 24 giờ.',
-    googleMapsUrl: shopInfo.googleMapsUrl || 'https://maps.google.com/?q=86+Pasteur+Ben+Nghe+Quan+1+Ho+Chi+Minh',
-    zaloPhone: shopInfo.zaloPhone || '0908888999',
-    facebookName: shopInfo.facebookName || 'B Beauty & Luxury Spa',
-    instagramTag: shopInfo.instagramTag || '@bbeautyspa.saigon',
-    isOnlineActive: true,
-    amenities: shopInfo.amenities || [
-      '🅿️ Có chỗ đỗ ô tô & xe máy miễn phí',
-      '🍵 Trà thảo mộc & bánh ngọt đón tiếp',
-      '🧖‍♀️ Phòng trị liệu riêng tư chuẩn VIP',
-      '📶 Wi-Fi 5G & sạc điện thoại tại ghế'
-    ],
     gallery: shopInfo.gallery || [
       'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80'
+    ],
+    amenities: shopInfo.amenities || [
+      '🅿️ Có chỗ đỗ ô tô & xe máy miễn phí',
+      '🍵 Trà thảo mộc & bánh ngọt đón tiếp',
+      '🧖‍♀️ Phòng trị liệu riêng tư chuẩn VIP',
+      '📶 Wi-Fi 5G & sạc điện thoại tại ghế'
     ]
   });
 
@@ -83,477 +70,447 @@ export const PartnerProfile = () => {
   };
 
   return (
-    <div style={{ padding: '16px 18px 130px' }} className="animate-fade-up">
-      {/* 1. Header */}
-      <div style={{ marginBottom: '14px' }}>
-        <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#691F31', margin: 0 }}>
-          Hồ Sơ Cơ Sở & Quản Lý Hoạt Động
-        </h2>
-        <p style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', marginTop: '3px' }}>
-          Quản lý thông tin tiệm, tiện ích 5 sao, chính sách đặt cọc và đội ngũ chuyên viên.
-        </p>
-      </div>
-
-      {/* 2. Verified Online Banner */}
-      <div style={{
-        backgroundColor: '#E8F5E9',
-        border: '1.5px solid #2E7D32',
-        borderRadius: '16px',
-        padding: '10px 14px',
-        marginBottom: '14px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '10px'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <CheckCircle2 size={18} color="#2E7D32" style={{ flexShrink: 0 }} />
-          <div>
-            <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#2E7D32' }}>
-              CƠ SỞ ĐANG HOẠT ĐỘNG TRỰC TUYẾN
-            </div>
-            <div style={{ fontSize: '10px', color: '#1B5E20', marginTop: '1px' }}>
-              Tiệm B sẵn sàng đón tiếp khách đặt hẹn & nhận thanh toán đặt cọc 20%.
-            </div>
-          </div>
-        </div>
-
-        <span style={{
-          backgroundColor: '#2E7D32',
-          color: '#FFFFFF',
-          fontSize: '9.5px',
-          fontWeight: '800',
-          padding: '2px 8px',
-          borderRadius: '999px',
-          flexShrink: 0
-        }}>
-          LIVE
-        </span>
-      </div>
-
-      {/* 3. 4 Segmented Tabs */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
-        borderRadius: '14px',
-        padding: '3px',
-        marginBottom: '14px',
-        border: '1px solid rgba(201, 168, 117, 0.25)',
-        gap: '2px'
-      }}>
-        <button
-          onClick={() => setProfileTab('brand')}
-          style={{
-            padding: '8px 2px',
-            borderRadius: '10px',
-            fontSize: '10.5px',
-            fontWeight: profileTab === 'brand' ? '800' : '600',
-            backgroundColor: profileTab === 'brand' ? '#691F31' : 'transparent',
-            color: profileTab === 'brand' ? '#FFF8F4' : '#691F31',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '2px'
-          }}
-        >
-          <Store size={13} />
-          <span>Cơ sở & Ảnh</span>
-        </button>
-
-        <button
-          onClick={() => setProfileTab('operations')}
-          style={{
-            padding: '8px 2px',
-            borderRadius: '10px',
-            fontSize: '10.5px',
-            fontWeight: profileTab === 'operations' ? '800' : '600',
-            backgroundColor: profileTab === 'operations' ? '#691F31' : 'transparent',
-            color: profileTab === 'operations' ? '#FFF8F4' : '#691F31',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '2px'
-          }}
-        >
-          <ShieldCheck size={13} />
-          <span>Chính sách cọc</span>
-        </button>
-
-        <button
-          onClick={() => setProfileTab('staff')}
-          style={{
-            padding: '8px 2px',
-            borderRadius: '10px',
-            fontSize: '10.5px',
-            fontWeight: profileTab === 'staff' ? '800' : '600',
-            backgroundColor: profileTab === 'staff' ? '#691F31' : 'transparent',
-            color: profileTab === 'staff' ? '#FFF8F4' : '#691F31',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '2px'
-          }}
-        >
-          <Users size={13} />
-          <span>Kỹ thuật viên</span>
-        </button>
-
-        <button
-          onClick={() => setProfileTab('reviews')}
-          style={{
-            padding: '8px 2px',
-            borderRadius: '10px',
-            fontSize: '10.5px',
-            fontWeight: profileTab === 'reviews' ? '800' : '600',
-            backgroundColor: profileTab === 'reviews' ? '#691F31' : 'transparent',
-            color: profileTab === 'reviews' ? '#FFF8F4' : '#691F31',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '2px',
-            position: 'relative'
-          }}
-        >
-          <Star size={13} fill={profileTab === 'reviews' ? '#D9BD8C' : '#691F31'} />
-          <span>Đánh giá</span>
-          {flaggedCount > 0 && (
-            <span style={{
-              position: 'absolute',
-              top: '2px',
-              right: '4px',
-              fontSize: '8.5px',
-              backgroundColor: '#D97706',
-              color: '#FFFFFF',
-              width: '14px',
-              height: '14px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: '800'
-            }}>
-              {flaggedCount}
+    <div style={{ padding: '20px 20px 140px' }} className="animate-fade-up">
+      {/* 1. Header & Status Strip */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+        <div>
+          <h2 style={{ fontSize: '19px', fontWeight: '800', color: '#691F31', margin: 0, letterSpacing: '-0.3px' }}>
+            Hồ Sơ Cơ Sở Tiệm B
+          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '3px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#2E7D32' }} />
+            <span style={{ fontSize: '11px', color: '#2E7D32', fontWeight: '700' }}>
+              Trực tuyến sẵn sàng nhận lịch
             </span>
-          )}
+          </div>
+        </div>
+
+        <button
+          onClick={handleSave}
+          style={{
+            padding: '8px 16px',
+            borderRadius: '999px',
+            backgroundColor: '#691F31',
+            color: '#FFF8F4',
+            fontSize: '11.5px',
+            fontWeight: '700',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            boxShadow: '0 4px 12px rgba(105, 31, 49, 0.25)'
+          }}
+        >
+          <Save size={13} />
+          <span>{saveSuccess ? 'Đã lưu ✓' : 'Lưu hồ sơ'}</span>
         </button>
       </div>
 
-      {/* 4. TAB CONTENTS */}
+      {/* 2. Clean Segmented Navigation */}
+      <div style={{
+        display: 'flex',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '16px',
+        padding: '3px',
+        marginBottom: '20px',
+        border: '1px solid rgba(201, 168, 117, 0.22)',
+        boxShadow: '0 2px 8px rgba(105, 31, 49, 0.02)'
+      }}>
+        {[
+          { id: 'brand', label: 'Thông tin', icon: Store },
+          { id: 'operations', label: 'Tiền cọc', icon: ShieldCheck },
+          { id: 'staff', label: 'Chuyên viên', icon: Users },
+          { id: 'reviews', label: 'Đánh giá', icon: Star, badge: flaggedCount }
+        ].map((tab) => {
+          const Icon = tab.icon;
+          const isActive = profileTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setProfileTab(tab.id)}
+              style={{
+                flex: 1,
+                padding: '9px 0',
+                borderRadius: '13px',
+                fontSize: '11px',
+                fontWeight: isActive ? '800' : '600',
+                backgroundColor: isActive ? '#691F31' : 'transparent',
+                color: isActive ? '#FFF8F4' : 'rgba(105, 31, 49, 0.7)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5px',
+                position: 'relative',
+                transition: 'all 0.18s ease'
+              }}
+            >
+              <Icon size={13} />
+              <span>{tab.label}</span>
+              {tab.badge > 0 && (
+                <span style={{
+                  fontSize: '8px',
+                  backgroundColor: '#D97706',
+                  color: '#FFFFFF',
+                  padding: '1px 5px',
+                  borderRadius: '999px',
+                  fontWeight: '800'
+                }}>
+                  {tab.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 3. Tab Contents: Grouped Cards with Generous Breathing Space */}
       {profileTab === 'brand' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          {/* Form Brand Info */}
-          <div
-            className="warm-glass-card"
-            style={{
-              borderRadius: '20px',
-              padding: '16px',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid rgba(201, 168, 117, 0.28)'
-            }}
-          >
-            <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div>
-                <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                  Tên cơ sở làm đẹp:
-                </label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '12px', fontSize: '12px' }}
-                />
-              </div>
-
-              <div>
-                <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                  Khẩu hiệu / Slogan tiệm:
-                </label>
-                <input
-                  type="text"
-                  value={formData.tagline}
-                  onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '12px', fontSize: '12px' }}
-                />
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                <div>
-                  <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                    Hotline đặt hẹn:
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.hotline}
-                    onChange={(e) => setFormData({ ...formData, hotline: e.target.value })}
-                    style={{ width: '100%', padding: '9px 12px', borderRadius: '12px', fontSize: '12px' }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                    Khung giờ mở cửa:
-                  </label>
-                  <input
-                    type="text"
-                    value={`${formData.openTime} - ${formData.closeTime}`}
-                    onChange={(e) => {
-                      const parts = e.target.value.split('-');
-                      if (parts.length === 2) {
-                        setFormData({ ...formData, openTime: parts[0].trim(), closeTime: parts[1].trim() });
-                      }
-                    }}
-                    style={{ width: '100%', padding: '9px 12px', borderRadius: '12px', fontSize: '12px' }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                  Địa chỉ cơ sở:
-                </label>
-                <input
-                  type="text"
-                  value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '12px', fontSize: '12px' }}
-                />
-              </div>
-
-              <div>
-                <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                  Giới thiệu không gian & trải nghiệm:
-                </label>
-                <textarea
-                  rows={3}
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  style={{ width: '100%', padding: '9px 12px', borderRadius: '12px', fontSize: '12px', resize: 'none' }}
-                />
-              </div>
-
-              {/* Gallery of Shop Photos */}
-              <div>
-                <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '6px' }}>
-                  <Camera size={13} />
-                  <span>Bộ sưu tập hình ảnh không gian tiệm ({formData.gallery.length} ảnh):</span>
-                </label>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
-                  {formData.gallery.map((imgUrl, i) => (
-                    <div key={i} style={{ position: 'relative', height: '65px', borderRadius: '10px', overflow: 'hidden' }}>
-                      <img src={imgUrl} alt={`Ảnh ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 5-star Amenities */}
-              <div>
-                <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '6px' }}>
-                  <Sparkles size={13} color="#C9A875" />
-                  <span>Tiện ích 5 sao đón tiếp khách:</span>
-                </label>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                  {formData.amenities.map((item, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '6px 10px',
-                        borderRadius: '8px',
-                        backgroundColor: '#F8F2EC',
-                        fontSize: '11.5px',
-                        color: '#691F31'
-                      }}
-                    >
-                      <span>{item}</span>
-                      <button type="button" onClick={() => handleRemoveAmenity(index)}>
-                        <Trash2 size={12} color="#C62828" />
-                      </button>
-                    </div>
-                  ))}
-
-                  <div style={{ display: 'flex', gap: '6px', marginTop: '4px' }}>
-                    <input
-                      type="text"
-                      value={newAmenityText}
-                      onChange={(e) => setNewAmenityText(e.target.value)}
-                      placeholder="Thêm tiện ích mới (VD: Ghế massage tự động)..."
-                      style={{ flex: 1, padding: '7px 10px', borderRadius: '8px', fontSize: '11px' }}
-                    />
-                    <button
-                      type="button"
-                      onClick={handleAddAmenity}
-                      style={{
-                        padding: '7px 12px',
-                        borderRadius: '8px',
-                        backgroundColor: '#691F31',
-                        color: '#FFF8F4',
-                        fontSize: '11px',
-                        fontWeight: '700'
-                      }}
-                    >
-                      Thêm
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Save Button */}
-              <button
-                type="submit"
-                className="btn-burgundy-cta"
-                style={{ width: '100%', marginTop: '8px', gap: '6px' }}
-              >
-                <Save size={15} />
-                <span>{saveSuccess ? '✓ Đã Lưu Thông Tin Cơ Sở' : 'Lưu Thay Đổi Cơ Sở Tiệm B'}</span>
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {profileTab === 'operations' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          <div
-            className="warm-glass-card"
-            style={{
-              borderRadius: '20px',
-              padding: '16px',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid rgba(201, 168, 117, 0.28)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '14px'
-            }}
-          >
-            <div>
-              <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#691F31', margin: 0 }}>
-                Thiết Lập Chính Sách Đặt Cọc & Hoàn Tiền
-              </h3>
-              <p style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', marginTop: '2px' }}>
-                Hệ thống đặt cọc giữ chỗ chống bùng lịch, bảo vệ quyền lợi của cả tiệm và khách hàng.
-              </p>
+        <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* Card 1: Thương hiệu */}
+          <div style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '22px',
+            padding: '18px',
+            border: '1px solid rgba(201, 168, 117, 0.22)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '14px',
+            boxShadow: '0 4px 16px rgba(105, 31, 49, 0.02)'
+          }}>
+            <div style={{ fontSize: '13px', fontWeight: '800', color: '#691F31', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Store size={15} color="#C9A875" />
+              <span>Nhận diện thương hiệu</span>
             </div>
 
             <div>
-              <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                Tỷ lệ tiền cọc khi đặt hẹn online:
-              </label>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                {[15, 20, 25, 30].map((rate) => (
-                  <button
-                    key={rate}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, depositRate: rate })}
-                    style={{
-                      flex: 1,
-                      padding: '8px',
-                      borderRadius: '10px',
-                      fontWeight: '800',
-                      fontSize: '12px',
-                      backgroundColor: formData.depositRate === rate ? '#691F31' : '#F8F2EC',
-                      color: formData.depositRate === rate ? '#FFF8F4' : '#691F31',
-                      border: formData.depositRate === rate ? '1.5px solid #C9A875' : 'none'
-                    }}
-                  >
-                    {rate}%
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label style={{ fontSize: '11px', fontWeight: '800', color: '#691F31', display: 'block', marginBottom: '3px' }}>
-                Cam kết hoàn tiền cọc hiển thị cho khách:
-              </label>
-              <textarea
-                rows={3}
-                value={formData.depositPolicy}
-                onChange={(e) => setFormData({ ...formData, depositPolicy: e.target.value })}
-                style={{ width: '100%', padding: '9px 12px', borderRadius: '12px', fontSize: '12px', resize: 'none' }}
+              <span style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', fontWeight: '600', display: 'block', marginBottom: '4px' }}>
+                Tên cơ sở:
+              </span>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '12px', fontSize: '12.5px' }}
               />
             </div>
 
-            <div style={{
-              backgroundColor: '#FFF7F0',
-              borderRadius: '12px',
-              padding: '10px 12px',
-              border: '1px solid rgba(201, 168, 117, 0.35)',
-              fontSize: '11px',
-              color: '#691F31',
-              lineHeight: '1.4'
-            }}>
-              💡 <strong>Chính sách VIP:</strong> Hội viên Thẻ Kim Cương (Diamond VIP) được miễn trừ phạt cọc và hỗ trợ dời lịch linh hoạt 100%.
+            <div>
+              <span style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', fontWeight: '600', display: 'block', marginBottom: '4px' }}>
+                Khẩu hiệu / Slogan:
+              </span>
+              <input
+                type="text"
+                value={formData.tagline}
+                onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '12px', fontSize: '12.5px' }}
+              />
             </div>
 
-            <button
-              type="button"
-              onClick={handleSave}
-              className="btn-burgundy-cta"
-              style={{ width: '100%', gap: '6px' }}
-            >
-              <Save size={15} />
-              <span>{saveSuccess ? '✓ Đã Cập Nhật Chính Sách' : 'Cập Nhật Chính Sách Đặt Cọc'}</span>
-            </button>
+            <div>
+              <span style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', fontWeight: '600', display: 'block', marginBottom: '4px' }}>
+                Giới thiệu không gian tiệm:
+              </span>
+              <textarea
+                rows={3}
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '12px', fontSize: '12px', resize: 'none', lineHeight: '1.45' }}
+              />
+            </div>
           </div>
+
+          {/* Card 2: Liên hệ & Giờ phục vụ */}
+          <div style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '22px',
+            padding: '18px',
+            border: '1px solid rgba(201, 168, 117, 0.22)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '14px',
+            boxShadow: '0 4px 16px rgba(105, 31, 49, 0.02)'
+          }}>
+            <div style={{ fontSize: '13px', fontWeight: '800', color: '#691F31', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Sparkles size={15} color="#C9A875" />
+              <span>Liên hệ & Phục vụ</span>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div>
+                <span style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', fontWeight: '600', display: 'block', marginBottom: '4px' }}>
+                  Hotline đặt hẹn:
+                </span>
+                <input
+                  type="text"
+                  value={formData.hotline}
+                  onChange={(e) => setFormData({ ...formData, hotline: e.target.value })}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '12px', fontSize: '12px' }}
+                />
+              </div>
+
+              <div>
+                <span style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', fontWeight: '600', display: 'block', marginBottom: '4px' }}>
+                  Giờ mở cửa:
+                </span>
+                <input
+                  type="text"
+                  value={`${formData.openTime} - ${formData.closeTime}`}
+                  onChange={(e) => {
+                    const parts = e.target.value.split('-');
+                    if (parts.length === 2) {
+                      setFormData({ ...formData, openTime: parts[0].trim(), closeTime: parts[1].trim() });
+                    }
+                  }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '12px', fontSize: '12px' }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <span style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.7)', fontWeight: '600', display: 'block', marginBottom: '4px' }}>
+                Địa chỉ:
+              </span>
+              <input
+                type="text"
+                value={formData.address}
+                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '12px', fontSize: '12px' }}
+              />
+            </div>
+          </div>
+
+          {/* Card 3: Hình ảnh không gian tiệm (Cuộn ngang thoáng đãng) */}
+          <div style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '22px',
+            padding: '18px',
+            border: '1px solid rgba(201, 168, 117, 0.22)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            boxShadow: '0 4px 16px rgba(105, 31, 49, 0.02)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ fontSize: '13px', fontWeight: '800', color: '#691F31', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Camera size={15} color="#C9A875" />
+                <span>Không gian tiệm ({formData.gallery.length} ảnh)</span>
+              </div>
+              <span style={{ fontSize: '10.5px', color: 'rgba(105, 31, 49, 0.6)' }}>Vuốt ngang ➔</span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '4px' }}>
+              {formData.gallery.map((imgUrl, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: '130px',
+                    height: '90px',
+                    borderRadius: '14px',
+                    overflow: 'hidden',
+                    flexShrink: 0,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                  }}
+                >
+                  <img src={imgUrl} alt={`Ảnh ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 4: Tiện ích đón tiếp khách */}
+          <div style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '22px',
+            padding: '18px',
+            border: '1px solid rgba(201, 168, 117, 0.22)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            boxShadow: '0 4px 16px rgba(105, 31, 49, 0.02)'
+          }}>
+            <div style={{ fontSize: '13px', fontWeight: '800', color: '#691F31' }}>
+              Tiện ích phục vụ khách
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {formData.amenities.map((item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '8px 12px',
+                    borderRadius: '12px',
+                    backgroundColor: '#F8F2EC',
+                    fontSize: '11.5px',
+                    color: '#691F31'
+                  }}
+                >
+                  <span>{item}</span>
+                  <button type="button" onClick={() => handleRemoveAmenity(index)}>
+                    <Trash2 size={13} color="rgba(105, 31, 49, 0.5)" />
+                  </button>
+                </div>
+              ))}
+
+              <div style={{ display: 'flex', gap: '8px', marginTop: '6px' }}>
+                <input
+                  type="text"
+                  value={newAmenityText}
+                  onChange={(e) => setNewAmenityText(e.target.value)}
+                  placeholder="Thêm tiện ích (VD: Ghế massage tự động)..."
+                  style={{ flex: 1, padding: '8px 12px', borderRadius: '10px', fontSize: '11.5px' }}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddAmenity}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: '10px',
+                    backgroundColor: '#691F31',
+                    color: '#FFF8F4',
+                    fontSize: '11px',
+                    fontWeight: '700'
+                  }}
+                >
+                  Thêm
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="btn-burgundy-cta"
+            style={{ width: '100%', height: '48px', gap: '6px', marginTop: '4px' }}
+          >
+            <Save size={16} />
+            <span>{saveSuccess ? '✓ Đã Lưu Toàn Bộ Hồ Sơ Cơ Sở' : 'Lưu Thay Đổi Cơ Sở Tiệm B'}</span>
+          </button>
+        </form>
+      )}
+
+      {profileTab === 'operations' && (
+        <div style={{
+          backgroundColor: '#FFFFFF',
+          borderRadius: '22px',
+          padding: '20px',
+          border: '1px solid rgba(201, 168, 117, 0.22)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px'
+        }}>
+          <div>
+            <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#691F31', margin: 0 }}>
+              Chính Sách Đặt Cọc & Hoàn Tiền
+            </h3>
+            <p style={{ fontSize: '11.5px', color: 'rgba(105, 31, 49, 0.65)', marginTop: '3px' }}>
+              Quy định đặt cọc bảo đảm giữ khung giờ riêng cho khách
+            </p>
+          </div>
+
+          <div>
+            <span style={{ fontSize: '11.5px', fontWeight: '700', color: '#691F31', display: 'block', marginBottom: '8px' }}>
+              Tỷ lệ đặt cọc:
+            </span>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {[15, 20, 25, 30].map((rate) => (
+                <button
+                  key={rate}
+                  type="button"
+                  onClick={() => setFormData({ ...formData, depositRate: rate })}
+                  style={{
+                    flex: 1,
+                    padding: '10px 0',
+                    borderRadius: '12px',
+                    fontWeight: '800',
+                    fontSize: '13px',
+                    backgroundColor: formData.depositRate === rate ? '#691F31' : '#F8F2EC',
+                    color: formData.depositRate === rate ? '#FFF8F4' : '#691F31',
+                    border: formData.depositRate === rate ? '1.5px solid #C9A875' : 'none'
+                  }}
+                >
+                  {rate}%
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <span style={{ fontSize: '11.5px', fontWeight: '700', color: '#691F31', display: 'block', marginBottom: '6px' }}>
+              Cam kết hoàn tiền cọc hiển thị cho khách:
+            </span>
+            <textarea
+              rows={3}
+              value={formData.depositPolicy}
+              onChange={(e) => setFormData({ ...formData, depositPolicy: e.target.value })}
+              style={{ width: '100%', padding: '10px 12px', borderRadius: '12px', fontSize: '12px', resize: 'none', lineHeight: '1.45' }}
+            />
+          </div>
+
+          <div style={{
+            backgroundColor: '#FFF8F4',
+            borderRadius: '14px',
+            padding: '12px 14px',
+            fontSize: '11.5px',
+            color: '#691F31',
+            lineHeight: '1.5',
+            border: '1px solid rgba(201, 168, 117, 0.25)'
+          }}>
+            👑 <strong>Đặc quyền VIP:</strong> Hội viên Thẻ Kim Cương (Diamond VIP) được miễn trừ phạt cọc và được hỗ trợ dời lịch linh hoạt 100%.
+          </div>
+
+          <button
+            type="button"
+            onClick={handleSave}
+            className="btn-burgundy-cta"
+            style={{ width: '100%', height: '46px', gap: '6px' }}
+          >
+            <Save size={15} />
+            <span>{saveSuccess ? '✓ Đã Lưu Chính Sách' : 'Cập Nhật Chính Sách Cọc'}</span>
+          </button>
         </div>
       )}
 
       {profileTab === 'staff' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', fontWeight: '800', color: '#691F31' }}>
-              Danh Sách Chuyên Viên Tiệm B ({staffList.length} người):
-            </span>
-            <button
-              onClick={() => alert('Chức năng thêm chuyên viên mới đang kết nối với hệ thống chấm công Tiệm B!')}
-              style={{ fontSize: '11px', fontWeight: '700', color: '#691F31', display: 'flex', alignItems: 'center', gap: '4px' }}
-            >
-              <Plus size={13} />
-              <span>Thêm Thợ Mới</span>
-            </button>
-          </div>
-
           {staffList.map((staff) => (
             <div
               key={staff.id}
               style={{
                 backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                padding: '12px 14px',
-                border: '1px solid rgba(201, 168, 117, 0.25)',
+                borderRadius: '18px',
+                padding: '14px 16px',
+                border: '1px solid rgba(201, 168, 117, 0.2)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                boxShadow: '0 2px 8px rgba(105, 31, 49, 0.04)'
+                boxShadow: '0 2px 8px rgba(105, 31, 49, 0.02)'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <img
                   src={staff.avatar}
                   alt={staff.name}
-                  style={{ width: '42px', height: '42px', borderRadius: '12px', objectFit: 'cover' }}
+                  style={{ width: '42px', height: '42px', borderRadius: '14px', objectFit: 'cover' }}
                 />
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: '800', color: '#691F31' }}>
+                  <div style={{ fontSize: '13.5px', fontWeight: '800', color: '#691F31' }}>
                     {staff.name}
                   </div>
-                  <div style={{ fontSize: '10.5px', color: 'rgba(105, 31, 49, 0.7)' }}>
+                  <div style={{ fontSize: '11px', color: 'rgba(105, 31, 49, 0.65)' }}>
                     {staff.role}
                   </div>
-                  <div style={{ fontSize: '10px', color: '#2E7D32', marginTop: '2px', fontWeight: '700' }}>
+                  <div style={{ fontSize: '10.5px', color: '#2E7D32', marginTop: '2px', fontWeight: '700' }}>
                     ⭐ {staff.rating} • {staff.experience}
                   </div>
                 </div>
               </div>
 
               <span style={{
-                fontSize: '10px',
+                fontSize: '10.5px',
                 fontWeight: '700',
-                padding: '3px 8px',
+                padding: '4px 10px',
                 borderRadius: '999px',
                 backgroundColor: '#E8F5E9',
                 color: '#2E7D32'
