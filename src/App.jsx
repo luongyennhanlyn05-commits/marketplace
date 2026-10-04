@@ -71,10 +71,80 @@ const AppContent = () => {
   );
 };
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error('App Error:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#F8F2EC',
+          color: '#691F31',
+          padding: '24px',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            width: '54px',
+            height: '54px',
+            borderRadius: '50%',
+            backgroundColor: '#F1D0C9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '14px'
+          }}>
+            ✨
+          </div>
+          <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '8px' }}>
+            Đang tải dữ liệu Tiệm B...
+          </h2>
+          <p style={{ fontSize: '12.5px', opacity: 0.8, marginBottom: '20px', maxWidth: '340px', lineHeight: '1.5' }}>
+            Hệ thống đang đồng bộ phiên bản mới nhất với các gói VIP. Vui lòng bấm nút bên dưới để làm mới dữ liệu!
+          </p>
+          <button
+            onClick={() => {
+              localStorage.clear();
+              window.location.reload();
+            }}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '999px',
+              backgroundColor: '#691F31',
+              color: '#FFF8F4',
+              fontWeight: '700',
+              fontSize: '13.5px',
+              boxShadow: '0 4px 14px rgba(105, 31, 49, 0.3)'
+            }}
+          >
+            Làm Mới & Đồng Bộ Ngay
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   return (
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
+    </ErrorBoundary>
   );
 }
+

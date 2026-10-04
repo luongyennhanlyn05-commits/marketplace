@@ -1,12 +1,13 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Crown, Sparkles, ChevronRight, Award, Gift, Zap } from 'lucide-react';
+import { Crown, Sparkles, ChevronRight } from 'lucide-react';
 
 export const CustomerVipCard = () => {
-  const { userTier, membershipTiers, setIsVipModalOpen } = useApp();
+  const { userTier, membershipTiers = [], setIsVipModalOpen } = useApp();
 
-  const activeTier = membershipTiers.find((t) => t.id === userTier);
-  const isVip = userTier && userTier !== 'standard' && activeTier;
+  const tiersList = Array.isArray(membershipTiers) ? membershipTiers : [];
+  const activeTier = tiersList.find((t) => t.id === userTier);
+  const isVip = userTier && userTier !== 'standard' && Boolean(activeTier);
 
   if (!isVip) {
     return (

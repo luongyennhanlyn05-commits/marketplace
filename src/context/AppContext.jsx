@@ -48,14 +48,22 @@ export const AppProvider = ({ children }) => {
 
   // Shop B Information
   const [shopInfo, setShopInfo] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.SHOP_INFO);
-    return saved ? JSON.parse(saved) : SHOP_B_INFO;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.SHOP_INFO);
+      return saved ? JSON.parse(saved) : SHOP_B_INFO;
+    } catch {
+      return SHOP_B_INFO;
+    }
   });
 
   // Services Menu of Tiệm B
   const [services, setServices] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.SERVICES);
-    return saved ? JSON.parse(saved) : INITIAL_SERVICES;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.SERVICES);
+      return saved ? JSON.parse(saved) : INITIAL_SERVICES;
+    } catch {
+      return INITIAL_SERVICES;
+    }
   });
 
   // Staff list of Tiệm B
@@ -63,26 +71,42 @@ export const AppProvider = ({ children }) => {
 
   // Customer Bookings
   const [bookings, setBookings] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.BOOKINGS);
-    return saved ? JSON.parse(saved) : INITIAL_BOOKINGS;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.BOOKINGS);
+      return saved ? JSON.parse(saved) : INITIAL_BOOKINGS;
+    } catch {
+      return INITIAL_BOOKINGS;
+    }
   });
 
   // Reviews of Tiệm B
   const [reviews, setReviews] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.REVIEWS);
-    return saved ? JSON.parse(saved) : INITIAL_REVIEWS;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.REVIEWS);
+      return saved ? JSON.parse(saved) : INITIAL_REVIEWS;
+    } catch {
+      return INITIAL_REVIEWS;
+    }
   });
 
   // Notifications
   const [notifications, setNotifications] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS);
-    return saved ? JSON.parse(saved) : INITIAL_NOTIFICATIONS;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS);
+      return saved ? JSON.parse(saved) : INITIAL_NOTIFICATIONS;
+    } catch {
+      return INITIAL_NOTIFICATIONS;
+    }
   });
 
   // Locked Slots of Tiệm B (Keyed by date_time)
   const [lockedSlots, setLockedSlots] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.LOCKED_SLOTS);
-    return saved ? JSON.parse(saved) : ['2026-10-04_11:00', '2026-10-05_15:30'];
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.LOCKED_SLOTS);
+      return saved ? JSON.parse(saved) : ['2026-10-04_11:00', '2026-10-05_15:30'];
+    } catch {
+      return ['2026-10-04_11:00', '2026-10-05_15:30'];
+    }
   });
 
   // Active VIP Tier of Customer ('standard', 'card_silver', 'card_gold', 'card_diamond')
@@ -92,14 +116,24 @@ export const AppProvider = ({ children }) => {
 
   // VIP Members List (Module CRM for Tiệm B)
   const [vipMembers, setVipMembers] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.VIP_MEMBERS);
-    return saved ? JSON.parse(saved) : INITIAL_VIP_MEMBERS;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.VIP_MEMBERS);
+      const parsed = saved ? JSON.parse(saved) : null;
+      return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_VIP_MEMBERS;
+    } catch {
+      return INITIAL_VIP_MEMBERS;
+    }
   });
 
   // Membership Tiers Configuration
   const [membershipTiers, setMembershipTiers] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.MEMBERSHIP_TIERS);
-    return saved ? JSON.parse(saved) : MEMBERSHIP_CARDS;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.MEMBERSHIP_TIERS);
+      const parsed = saved ? JSON.parse(saved) : null;
+      return Array.isArray(parsed) && parsed.length > 0 ? parsed : MEMBERSHIP_CARDS;
+    } catch {
+      return MEMBERSHIP_CARDS;
+    }
   });
 
   // Customer VIP Registration Modal
@@ -376,6 +410,13 @@ export const AppProvider = ({ children }) => {
   const updateShopInfo = (newInfo) => {
     setShopInfo((prev) => ({ ...prev, ...newInfo }));
   };
+
+  // Mark all notifications as read
+  const markAllNotificationsRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
 
   // VIP Operations
   const registerVipMember = ({ tierId, fullName, phone, birthday, note }) => {
