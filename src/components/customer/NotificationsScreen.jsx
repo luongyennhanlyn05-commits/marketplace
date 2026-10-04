@@ -23,7 +23,7 @@ export const NotificationsScreen = () => {
   };
 
   return (
-    <div style={{ padding: '16px 18px 90px' }} className="animate-fade-up">
+    <div style={{ padding: '16px 18px 150px' }} className="animate-fade-up">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
         <div>
           <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#691F31' }}>

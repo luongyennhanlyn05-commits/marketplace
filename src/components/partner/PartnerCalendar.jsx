@@ -208,7 +208,7 @@ export const PartnerCalendar = () => {
   }, [viewYear, viewMonth, bookings, lockedSlots]);
 
   return (
-    <div style={{ padding: '16px 18px 90px' }} className="animate-fade-up">
+    <div style={{ padding: '16px 18px 150px' }} className="animate-fade-up">
       {/* Screen Title & Role Header */}
       <div style={{ marginBottom: '14px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
         <div>

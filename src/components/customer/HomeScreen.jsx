@@ -112,7 +112,7 @@ export const HomeScreen = () => {
   };
 
   return (
-    <div style={{ paddingBottom: '120px' }} className="animate-fade-up">
+    <div style={{ paddingBottom: '160px' }} className="animate-fade-up">
       {/* 1. Header: Gọn gàng, thoáng đãng, sang trọng */}
       <header style={{
         padding: '16px 20px 12px',
@@ -140,21 +140,29 @@ export const HomeScreen = () => {
           </div>
           <div>
             <div style={{
-              fontSize: '14.5px',
+              fontSize: '15px',
               fontWeight: '800',
               color: '#691F31',
               letterSpacing: '-0.01em',
               lineHeight: '1.2'
             }}>
-              B Beauty
+              B Beauty Luxury Spa
             </div>
             <div style={{
-              fontSize: '11px',
-              color: 'rgba(105, 31, 49, 0.65)',
-              fontWeight: '500',
-              letterSpacing: '0.2px'
+              fontSize: '10.5px',
+              color: 'rgba(105, 31, 49, 0.68)',
+              fontWeight: '600',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              marginTop: '2px'
             }}>
-              Luxury Spa
+              <MapPin size={11} color="#691F31" />
+              <span>86 Pasteur, Q.1</span>
+              <span>•</span>
+              <span style={{ color: isShopOpen() ? '#2E7D32' : '#C62828' }}>
+                {isShopOpen() ? 'Mở cửa' : 'Nghỉ'}
+              </span>
             </div>
           </div>
         </div>
@@ -216,109 +224,6 @@ export const HomeScreen = () => {
           </button>
         </div>
       </header>
-
-      {/* 1.5. Micro Address & Live Status Strip (Thanh định vị tinh tế chuẩn Luxury UX) */}
-      <div style={{ padding: '0 20px 10px' }}>
-        <div
-          className="warm-glass-card hover-blush"
-          style={{
-            padding: '7px 12px 7px 14px',
-            borderRadius: '999px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '8px',
-            border: '1px solid rgba(201, 168, 117, 0.28)',
-            backgroundColor: 'rgba(255, 255, 255, 0.88)',
-            boxShadow: '0 2px 10px rgba(105, 31, 49, 0.04)'
-          }}
-        >
-          {/* Địa chỉ rút gọn & Chấm trạng thái */}
-          <div
-            onClick={() => {
-              const el = document.getElementById('store-info-section');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '11px',
-              fontWeight: '700',
-              color: '#691F31',
-              cursor: 'pointer',
-              flex: 1,
-              minWidth: 0
-            }}
-            title="Bấm để cuộn xem chi tiết địa chỉ & tiện ích tiệm"
-          >
-            <MapPin size={13} color="#691F31" style={{ flexShrink: 0 }} />
-            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              86 Pasteur, Q.1
-            </span>
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '3px',
-              backgroundColor: isShopOpen() ? 'rgba(46, 125, 50, 0.12)' : 'rgba(198, 40, 40, 0.12)',
-              color: isShopOpen() ? '#2E7D32' : '#C62828',
-              padding: '1px 6px',
-              borderRadius: '999px',
-              fontSize: '9.5px',
-              fontWeight: '800',
-              flexShrink: 0
-            }}>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: isShopOpen() ? '#2E7D32' : '#C62828' }} />
-              <span>{isShopOpen() ? 'Mở cửa' : 'Tạm nghỉ'}</span>
-            </span>
-          </div>
-
-          {/* Quick Action Buttons: Chỉ Đường Maps & Hotline */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
-            <a
-              href={shopInfo.googleMapsUrl || 'https://maps.google.com/?q=86+Pasteur+Ben+Nghe+Quan+1+Ho+Chi+Minh'}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '3px',
-                padding: '4px 9px',
-                borderRadius: '999px',
-                backgroundColor: '#F6E1DB',
-                color: '#691F31',
-                fontSize: '10.5px',
-                fontWeight: '800',
-                textDecoration: 'none',
-                border: '1px solid rgba(201, 168, 117, 0.25)'
-              }}
-              title="Mở Google Maps chỉ đường"
-            >
-              <Navigation size={11} color="#691F31" />
-              <span>Chỉ đường</span>
-            </a>
-
-            <a
-              href={`tel:${shopInfo.hotline ? shopInfo.hotline.replace(/\s+/g, '') : '0908888999'}`}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                backgroundColor: '#691F31',
-                color: '#FFF8F4',
-                textDecoration: 'none',
-                boxShadow: '0 2px 6px rgba(105, 31, 49, 0.2)'
-              }}
-              title="Gọi Hotline Lễ Tân"
-            >
-              <Phone size={11} color="#FFF8F4" />
-            </a>
-          </div>
-        </div>
-      </div>
 
       {/* 2. Thẻ Hội Viên VIP Tiệm B */}
       <CustomerVipCard />
@@ -444,8 +349,14 @@ export const HomeScreen = () => {
           </button>
         </div>
 
-        {/* 3 Mini Cards Ngang */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+        {/* Danh sách Dịch Vụ Nổi Bật: Vuốt ngang thông thoáng, không bị chi chít */}
+        <div style={{
+          display: 'flex',
+          gap: '12px',
+          overflowX: 'auto',
+          paddingBottom: '8px',
+          scrollbarWidth: 'none'
+        }}>
           {featuredServices.map((item) => {
             const IconComponent = item.icon;
             return (
@@ -454,53 +365,63 @@ export const HomeScreen = () => {
                 onClick={() => handleStartBooking(item.matchedService)}
                 className="warm-glass-card hover-blush"
                 style={{
-                  padding: '14px 10px',
-                  borderRadius: '20px',
+                  minWidth: '145px',
+                  maxWidth: '145px',
+                  flexShrink: 0,
+                  padding: '16px 12px',
+                  borderRadius: '22px',
                   textAlign: 'center',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   cursor: 'pointer',
-                  border: '1px solid rgba(201, 168, 117, 0.2)'
+                  border: '1px solid rgba(201, 168, 117, 0.22)'
                 }}
               >
-                {/* Icon phụ trong hình tròn hồng phấn */}
+                {/* Icon tròn hồng phấn */}
                 <div style={{
-                  width: '38px',
-                  height: '38px',
+                  width: '42px',
+                  height: '42px',
                   borderRadius: '50%',
                   backgroundColor: '#F6E1DB',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: '#691F31',
-                  marginBottom: '8px'
+                  marginBottom: '10px'
                 }}>
-                  <IconComponent size={18} />
+                  <IconComponent size={20} />
                 </div>
 
                 <div style={{
-                  fontSize: '11.5px',
+                  fontSize: '12px',
                   fontWeight: '800',
                   color: '#691F31',
-                  lineHeight: '1.25',
-                  marginBottom: '4px'
+                  lineHeight: '1.3',
+                  marginBottom: '4px',
+                  minHeight: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
                   {item.name}
                 </div>
 
                 <div style={{
                   fontSize: '10px',
-                  color: 'rgba(105, 31, 49, 0.65)'
+                  color: 'rgba(105, 31, 49, 0.65)',
+                  marginBottom: '8px'
                 }}>
                   {item.duration}
                 </div>
 
                 <div style={{
-                  fontSize: '11px',
+                  fontSize: '11.5px',
                   fontWeight: '800',
                   color: '#691F31',
-                  marginTop: '4px'
+                  backgroundColor: 'rgba(241, 208, 201, 0.4)',
+                  padding: '3px 10px',
+                  borderRadius: '999px'
                 }}>
                   {item.price}
                 </div>
@@ -619,72 +540,6 @@ export const HomeScreen = () => {
         </div>
       </section>
 
-      {/* 5. Ưu Đãi Nhỏ / Thẻ Thành Viên VIP: Card kính mờ tinh giản */}
-      <section style={{ padding: '0 20px 18px' }}>
-        <div
-          className="warm-glass-card hover-blush"
-          style={{
-            padding: '16px 18px',
-            borderRadius: '22px',
-            border: '1px solid rgba(201, 168, 117, 0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '14px'
-          }}
-        >
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              padding: '2px 8px',
-              borderRadius: '999px',
-              backgroundColor: '#F6E1DB',
-              color: '#691F31',
-              fontSize: '9.5px',
-              fontWeight: '800',
-              marginBottom: '6px'
-            }}>
-              <Sparkles size={10} color="#C9A875" />
-              <span>ĐẶC QUYỀN TIỆM B</span>
-            </div>
-
-            <h3 style={{
-              fontSize: '13px',
-              fontWeight: '800',
-              color: '#691F31',
-              marginBottom: '2px'
-            }}>
-              Thẻ Thành Viên B VIP
-            </h3>
-
-            <p style={{
-              fontSize: '11px',
-              color: 'rgba(105, 31, 49, 0.7)',
-              lineHeight: '1.35'
-            }}>
-              Ưu đãi giảm 5% – 25% trọn gói dịch vụ và ưu tiên giữ khung giờ vàng.
-            </p>
-          </div>
-
-          <button
-            onClick={() => setCustomerTab('menu')}
-            style={{
-              padding: '8px 14px',
-              borderRadius: '999px',
-              backgroundColor: '#691F31',
-              color: '#F8F2EC',
-              fontSize: '11px',
-              fontWeight: '700',
-              flexShrink: 0,
-              boxShadow: '0 3px 10px rgba(105, 31, 49, 0.2)'
-            }}
-          >
-            Khám phá
-          </button>
-        </div>
-      </section>
 
       {/* 6. Đánh Giá & Trải Nghiệm Khách Hàng (Hệ thống đánh giá & phản hồi sau dịch vụ) */}
       <section style={{ padding: '0 20px 24px' }}>

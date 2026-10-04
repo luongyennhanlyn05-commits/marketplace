@@ -19,7 +19,7 @@ export const PartnerDashboard = () => {
     .reduce((sum, b) => sum + (b.depositAmount || 0), 0);
 
   return (
-    <div style={{ padding: '16px 18px 90px' }} className="animate-fade-up">
+    <div style={{ padding: '16px 18px 150px' }} className="animate-fade-up">
       {/* Top Shop Card */}
       <div className="component-card" style={{
         borderRadius: '20px',

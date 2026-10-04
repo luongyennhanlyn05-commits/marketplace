@@ -150,14 +150,14 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 10px 28px -2px rgba(105, 31, 49, 0.42);
 }
 
-/* Crystal Floating Dock (Nền kính kem mờ, nổi bật tách biệt khỏi nội dung) */
+/* Crystal Floating Dock (Kính mờ xuyên thấu siêu sang - Frosted Glassmorphism) */
 .crystal-dock {
-  background: var(--bg-dock);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border: 1px solid var(--border-dock);
+  background: rgba(255, 255, 255, 0.42) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.65) !important;
   border-radius: 999px;
-  box-shadow: var(--shadow-dock);
+  box-shadow: 0 10px 30px -4px rgba(105, 31, 49, 0.09), inset 0 1px 1px 0 rgba(255, 255, 255, 0.75) !important;
 }
 
 /* ================= AMBIENT 3D MOTION BACKGROUND ================= */

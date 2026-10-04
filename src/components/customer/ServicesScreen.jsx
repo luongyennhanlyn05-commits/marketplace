@@ -21,7 +21,7 @@ export const ServicesScreen = () => {
   };
 
   return (
-    <div style={{ padding: '16px 20px 120px' }} className="animate-fade-up">
+    <div style={{ padding: '16px 20px 150px' }} className="animate-fade-up">
       {/* Title */}
       <div style={{ marginBottom: '14px' }}>
         <h2 style={{

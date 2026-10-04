@@ -18,7 +18,7 @@ export const MyBookingsScreen = () => {
   };
 
   return (
-    <div style={{ padding: '16px 18px 90px' }} className="animate-fade-up">
+    <div style={{ padding: '16px 18px 150px' }} className="animate-fade-up">
       <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#691F31', marginBottom: '14px' }}>
         Lịch Hẹn Của Bạn Tại Tiệm B
       </h2>

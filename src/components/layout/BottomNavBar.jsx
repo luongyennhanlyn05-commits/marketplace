@@ -36,9 +36,9 @@ export const BottomNavBar = () => {
     return (
       <div style={{
         position: 'absolute',
-        bottom: '12px',
-        left: '18px',
-        right: '18px',
+        bottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
+        left: '16px',
+        right: '16px',
         zIndex: 800,
         pointerEvents: 'none'
       }}>
@@ -49,7 +49,7 @@ export const BottomNavBar = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-around',
-            padding: '0 6px',
+            padding: '0 4px',
             pointerEvents: 'auto'
           }}
         >
@@ -67,22 +67,23 @@ export const BottomNavBar = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '2px',
-                  color: isActive ? '#691F31' : 'rgba(105, 31, 49, 0.45)',
-                  fontWeight: isActive ? '800' : '500',
-                  fontSize: '9.5px'
+                  color: isActive ? '#691F31' : 'rgba(105, 31, 49, 0.42)',
+                  fontWeight: isActive ? '700' : '500',
+                  fontSize: '9px',
+                  transition: 'all 0.18s ease'
                 }}
               >
                 <div style={{
-                  padding: '5px 12px',
+                  padding: '3px 8px',
                   borderRadius: '999px',
-                  backgroundColor: isActive ? '#F1D0C9' : 'transparent',
+                  backgroundColor: isActive ? 'rgba(241, 208, 201, 0.45)' : 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
                   transform: isActive ? 'scale(1.05)' : 'scale(1)'
                 }}>
-                  <Icon size={17} color={isActive ? '#691F31' : 'rgba(105, 31, 49, 0.45)'} />
+                  <Icon size={16} color={isActive ? '#691F31' : 'rgba(105, 31, 49, 0.45)'} />
                 </div>
                 <span>{tab.label}</span>
               </button>
@@ -104,9 +105,9 @@ export const BottomNavBar = () => {
   return (
     <div style={{
       position: 'absolute',
-      bottom: '12px',
-      left: '18px',
-      right: '18px',
+      bottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
+      left: '16px',
+      right: '16px',
       zIndex: 800,
       pointerEvents: 'none'
     }}>
@@ -136,32 +137,34 @@ export const BottomNavBar = () => {
                 justifyContent: 'center',
                 gap: '2px',
                 position: 'relative',
-                color: isActive ? '#691F31' : 'rgba(105, 31, 49, 0.48)',
-                fontWeight: isActive ? '800' : '500',
-                fontSize: '10px'
+                color: isActive ? '#691F31' : 'rgba(105, 31, 49, 0.42)',
+                fontWeight: isActive ? '700' : '500',
+                fontSize: '9.5px',
+                letterSpacing: '0.1px',
+                transition: 'all 0.18s ease'
               }}
             >
               <div style={{
-                padding: '5px 14px',
+                padding: '3px 12px',
                 borderRadius: '999px',
-                backgroundColor: isActive ? '#F1D0C9' : 'transparent',
+                backgroundColor: isActive ? 'rgba(241, 208, 201, 0.45)' : 'transparent',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
                 transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                transform: isActive ? 'scale(1.06)' : 'scale(1)'
+                transform: isActive ? 'scale(1.05)' : 'scale(1)'
               }}>
-                <Icon size={18} color={isActive ? '#691F31' : 'rgba(105, 31, 49, 0.48)'} />
+                <Icon size={17} color={isActive ? '#691F31' : 'rgba(105, 31, 49, 0.45)'} />
 
                 {tab.badge > 0 && (
                   <span style={{
                     position: 'absolute',
-                    top: '-2px',
-                    right: '3px',
+                    top: '-3px',
+                    right: '1px',
                     backgroundColor: '#691F31',
                     color: '#F8F2EC',
-                    fontSize: '9px',
+                    fontSize: '8.5px',
                     fontWeight: '800',
                     borderRadius: '999px',
                     minWidth: '14px',
@@ -170,14 +173,14 @@ export const BottomNavBar = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     padding: '0 2px',
-                    border: '1.5px solid #FFFFFF',
-                    boxShadow: '0 2px 6px rgba(105, 31, 49, 0.3)'
+                    border: '1.5px solid rgba(255, 255, 255, 0.95)',
+                    boxShadow: '0 2px 6px rgba(105, 31, 49, 0.25)'
                   }}>
                     {tab.badge}
                   </span>
                 )}
               </div>
-              <span style={{ fontWeight: isActive ? '700' : '500' }}>{tab.label}</span>
+              <span>{tab.label}</span>
             </button>
           );
         })}
